@@ -1,11 +1,11 @@
-<a href="https://travis-ci.org/sidhantpanda/docker-express-typescript-boilerplate">
-  <img src="https://travis-ci.org/sidhantpanda/docker-express-typescript-boilerplate.svg?branch=master" alt="Build Status" />
-</a>
 <a href="https://snyk.io//test/github/sidhantpanda/docker-express-typescript-boilerplate?targetFile=package.json">
   <img src="https://snyk.io//test/github/sidhantpanda/docker-express-typescript-boilerplate/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io//test/github/sidhantpanda/docker-express-typescript-boilerplate?targetFile=package.json" style="max-width:100%;">
 </a>
+<a href="#">
+  <img src="https://github.com/sidhantpanda/docker-express-typescript-boilerplate/workflows/Publish%20latest%20image/badge.svg" alt="Publish latest image" style="max-width:100%;">
+</a>
 
-![Publish latest image](https://github.com/sidhantpanda/docker-express-typescript-boilerplate/workflows/Publish%20latest%20image/badge.svg)
+---
 
 # Express TypeScript Boilerplate
 This repo can be used as a starting point for backend development with Nodejs. It comes bundled with Docker and is CI/CD optimized. The development environment uses `docker-compose` to start dependent services like mongo.
@@ -15,7 +15,7 @@ A few things to note in the project:
 * **[Dockerfile](https://github.com/sidhantpanda/docker-express-typescript-boilerplate/blob/master/Dockerfile)** - Dockerfile to generate docker builds.
 * **[docker-compose](https://github.com/sidhantpanda/docker-express-typescript-boilerplate/blob/master/docker-compose.yml)** - Docker compose script to start service in production mode.
 * **[Containerized Mongo for development](#development)** - Starts a local mongo container with data persistence across runs.
-* **[Mongo Connection Helper](https://github.com/sidhantpanda/docker-express-typescript-boilerplate/blob/master/src/mongo-connection.ts)** - A helper class to connect to MongoDB reliably.
+* **[Safe Mongooose Connection Helper](https://github.com/sidhantpanda/docker-express-typescript-boilerplate/blob/master/src/lib/safe-mongoose-connection.ts)** - A helper class to connect with Mongoose reliably.
 * **Joi** - For declarative payload validation
 * **[Middleware for easier async/await](https://github.com/sidhantpanda/docker-express-typescript-boilerplate/blob/master/src/middleware/request-middleware.ts)** - Catches errors from routes and throws them to express error handler to prevent app crash due to uncaught errors.
 * **[OpenAPI 3.0 Spec](https://github.com/sidhantpanda/docker-express-typescript-boilerplate/blob/master/openapi.json)** - A starter template to get started with API documentation using OpenAPI 3.0. This API spec is also available when running the development server at `http://localhost:3000/dev/api-docs`
@@ -119,6 +119,7 @@ The application uses [winston](https://github.com/winstonjs/winston) as the defa
 ```
 +-- scripts
 |   +-- dev.sh
+|   +-- setup-github-actions.sh
 +-- src
 |   +-- controllers
 |   |   +-- book
@@ -129,9 +130,16 @@ The application uses [winston](https://github.com/winstonjs/winston) as the defa
 |   +-- errors
 |   |   +-- application-error.ts
 |   |   +-- bad-request.ts
+|   +-- lib
+|   |   +-- console-logger
+|   |   |   +-- index.ts
+|   |   |   +-- winston-transport.ts
+|   |   +-- safe-mongo-connection.ts
 |   +-- middleware
 |   |   +-- request-middleware.ts
 |   +-- models
+|   |   +-- plugins
+|   |   |   +-- timestamp-plugin.ts
 |   |   +-- Book.ts
 |   +-- public
 |   |   +-- index.html
@@ -139,7 +147,6 @@ The application uses [winston](https://github.com/winstonjs/winston) as the defa
 |   +-- mongo-connection.ts
 |   +-- routes.ts
 |   +-- server.ts
-+-- .env
 +-- .env.default
 +-- .eslintrc.json
 +-- .gitignore
@@ -153,6 +160,5 @@ The application uses [winston](https://github.com/winstonjs/winston) as the defa
 +-- package-lock.json
 +-- package.json
 +-- README.md
-+-- setup-github-actions.sh
 +-- tsconfig.json
 ```

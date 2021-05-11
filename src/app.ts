@@ -14,7 +14,7 @@ function logResponseTime(req: Request, res: Response, next: NextFunction) {
   res.on('finish', () => {
     const elapsedHrTime = process.hrtime(startHrTime);
     const elapsedTimeInMs = elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6;
-    const message = `${req.method} ${res.statusCode} ${req.path} ${elapsedTimeInMs}ms`;
+    const message = `${req.method} ${res.statusCode} ${elapsedTimeInMs}ms\t${req.path}`;
     logger.log({
       level: 'info',
       message,
@@ -31,8 +31,6 @@ app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.set('port', process.env.PORT || 3000);
-
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
 app.use(routes);
@@ -43,8 +41,7 @@ app.use((err: ApplicationError, req: Request, res: Response, next: NextFunction)
   }
 
   return res.status(err.status || 500).json({
-    error: process.env.NODE_ENV === 'development' ? err : undefined,
-    message: err.message
+    error: err.message
   });
 });
 
