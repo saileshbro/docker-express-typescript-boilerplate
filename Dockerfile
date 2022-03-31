@@ -1,4 +1,4 @@
-FROM node:16.14.0-bullseye-slim
+FROM node:gallium-bullseye-slim
 
 # Add package file
 COPY package*.json ./
