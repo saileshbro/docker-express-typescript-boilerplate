@@ -1,4 +1,4 @@
-FROM node:23.3.0-bullseye-slim
+FROM node:23.3.0-bookworm-slim
 
 # Add package file
 COPY package*.json ./
