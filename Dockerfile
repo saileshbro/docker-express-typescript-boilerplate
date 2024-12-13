@@ -1,4 +1,4 @@
-FROM node:16-bullseye-slim
+FROM node:23.3.0-bullseye-slim
 
 # Add package file
 COPY package*.json ./
